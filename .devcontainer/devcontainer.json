@@ -1,0 +1,33 @@
+{
+  "name": "Minimal Agent Sandbox",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  
+  // 호스트 네트워크를 통째로 쓰지 않고, 통신용 파이프(host.docker.internal)만 뚫기
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway"
+  ],
+
+  // 개발할 웹 서버 포트가 있다면 여기에 명시 (VS Code가 자동으로 연결해줌)
+  // "forwardPorts": [8000, 3000],
+
+  "mounts": [
+    "source=${localEnv:HOME}/.pi,target=/home/vscode/.pi,type=bind,consistency=cached"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      },
+      // 프로젝트에 맞춰 필요한 확장 프로그램만 추가
+      "extensions": [
+        // 예: "ms-python.python"
+        // 예: "ms-vscode.cpptools"
+      ]
+    }
+  },
+
+  "remoteUser": "vscode"
+}
